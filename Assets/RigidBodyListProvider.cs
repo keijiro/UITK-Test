@@ -18,6 +18,13 @@ public sealed class RigidBodyListProvider : MonoBehaviour
     IEnumerable<string> EnumerateRigidBodies()
       => FindObjectsByType<Rigidbody>(FindObjectsSortMode.InstanceID).Select(x => x.name);
 
+    void OnListChange(ChangeEvent<string> evt)
+      => Debug.Log(evt.newValue);
+
     void Start()
-      => Document.rootVisualElement.Q(Element).dataSource = this;
+    {
+        var dropdown = Document.rootVisualElement.Q(Element);
+        dropdown.dataSource = this;
+        dropdown.RegisterCallback<ChangeEvent<string>>(OnListChange);
+    }
 }
