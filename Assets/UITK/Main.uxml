@@ -1,17 +1,12 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <engine:DropdownField label="Rigid Bodies" name="RigidBodyList" style="color: rgb(255, 255, 255);">
+    <engine:DropdownField label="Rigid Bodies" name="ObjectDropdown" style="color: rgb(255, 255, 255);">
         <Bindings>
             <engine:DataBinding property="choices" binding-mode="ToTarget" data-source-path="ObjectList" />
         </Bindings>
     </engine:DropdownField>
-    <engine:Label text="Box1" name="Box1" data-source-type="TransformDataProvider, Assembly-CSharp" style="color: rgb(255, 255, 255);">
+    <engine:Label text="Information" name="ObjectInformation" style="color: rgb(255, 255, 255);">
         <Bindings>
-            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="XformAsString" />
-        </Bindings>
-    </engine:Label>
-    <engine:Label text="Box2" name="Box2" data-source-type="TransformDataProvider, Assembly-CSharp" style="color: rgb(255, 255, 255);">
-        <Bindings>
-            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="XformAsString" />
+            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="ObjectInformation" />
         </Bindings>
     </engine:Label>
 </engine:UXML>
