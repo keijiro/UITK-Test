@@ -1,12 +1,16 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <engine:DropdownField label="Rigid Bodies" name="ObjectDropdown" style="color: rgb(255, 255, 255);">
-        <Bindings>
-            <engine:DataBinding property="choices" binding-mode="ToTarget" data-source-path="ObjectList" />
-        </Bindings>
-    </engine:DropdownField>
-    <engine:Label text="Information" name="ObjectInformation" style="color: rgb(255, 255, 255);">
-        <Bindings>
-            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="ObjectInformation" />
-        </Bindings>
-    </engine:Label>
+    <Style src="project://database/Assets/Main.uss?fileID=7433441132597879392&amp;guid=f66488d5732f645af8d4ea5c4842cb98&amp;type=3#Main" />
+    <engine:VisualElement name="root" style="flex-grow: 1; background-color: rgb(60, 64, 71);">
+        <engine:TabView name="TabView">
+            <engine:Tab label="Webcam to Image">
+                <engine:DropdownField label="Device" />
+                <engine:Slider label="Strength" value="42" high-value="100" />
+            </engine:Tab>
+            <engine:Tab label="Image to Image">
+                <engine:DropdownField label="Image" />
+                <engine:Slider label="Strength" value="42" high-value="100" />
+            </engine:Tab>
+            <engine:Tab label="Text to Image" />
+        </engine:TabView>
+    </engine:VisualElement>
 </engine:UXML>
