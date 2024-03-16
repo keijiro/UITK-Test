@@ -137,3 +137,8 @@ Tab {
 .unity-base-dropdown__item:checked > .unity-base-dropdown__checkmark {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
+
+.value-label {
+    width: 70px;
+    -unity-text-align: middle-right;
+}
