@@ -1,0 +1,25 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Main.uss?fileID=7433441132597879392&amp;guid=f66488d5732f645af8d4ea5c4842cb98&amp;type=3#Main" />
+    <engine:VisualElement name="root" style="flex-direction: row;">
+        <engine:VisualElement name="control-panel" style="flex-grow: 0; background-color: rgb(55, 59, 65);">
+            <engine:VisualElement name="main-control-container" style="flex-grow: 1; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">
+                <engine:TextField label="Prompt" value="The quick brown fox jumps over the lazy dog" name="prompt" />
+                <engine:Slider label="Step Count" value="42" high-value="100" name="step-count" />
+                <engine:Slider label="Seed" value="42" high-value="100" name="seed" />
+                <engine:Slider label="Guidance" value="42" high-value="100" name="guidance" />
+            </engine:VisualElement>
+            <engine:TabView name="image-source-tabs">
+                <engine:Tab label="Webcam to Image">
+                    <engine:DropdownField label="Device" choices="FaceTime HD camera,USB video,Built-in Webcam" index="0" />
+                    <engine:Slider label="Strength" value="42" high-value="100" />
+                </engine:Tab>
+                <engine:Tab label="Image to Image">
+                    <engine:DropdownField label="Image" />
+                    <engine:Slider label="Strength" value="42" high-value="100" />
+                </engine:Tab>
+                <engine:Tab label="Text to Image" />
+            </engine:TabView>
+        </engine:VisualElement>
+        <engine:VisualElement name="space" style="flex-grow: 1; flex-shrink: 0;" />
+    </engine:VisualElement>
+</engine:UXML>
