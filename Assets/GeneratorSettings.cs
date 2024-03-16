@@ -6,5 +6,6 @@ public sealed class GeneratorSettings : ScriptableObject
     public string prompt;
     public int stepCount;
     public int seed;
-    public float guidanceScale;
+    public float guidance;
+    public float strength;
 }

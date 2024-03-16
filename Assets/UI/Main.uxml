@@ -35,12 +35,12 @@
                 <engine:VisualElement name="guidance-row" style="flex-grow: 1; flex-direction: row;">
                     <engine:Slider label="Guidance" high-value="30" name="guidance-slider" style="flex-grow: 1;">
                         <Bindings>
-                            <engine:DataBinding property="value" data-source-path="guidanceScale" />
+                            <engine:DataBinding property="value" data-source-path="guidance" />
                         </Bindings>
                     </engine:Slider>
                     <engine:Label name="guidance-label" class="value-label">
                         <Bindings>
-                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="guidanceScale" />
+                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="guidance" />
                         </Bindings>
                     </engine:Label>
                 </engine:VisualElement>
@@ -48,13 +48,39 @@
             <engine:TabView name="image-source-tabs">
                 <engine:Tab label="Webcam to Image">
                     <engine:DropdownField label="Device" choices="FaceTime HD camera,USB video,Built-in Webcam" index="0" name="webcam-selector" />
-                    <engine:Slider label="Strength" value="42" high-value="100" name="webcam-strength" />
+                    <engine:VisualElement name="webcam-strength-row" style="flex-direction: row;">
+                        <engine:Slider label="Strength" name="webcam-strength" high-value="1" style="flex-grow: 1;">
+                            <Bindings>
+                                <engine:DataBinding property="value" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Slider>
+                        <engine:Label name="webcam-strength-label" class="value-label">
+                            <Bindings>
+                                <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Label>
+                    </engine:VisualElement>
+                    <engine:Button text="Generate&#x9;" name="webcam-generate-button" />
+                </engine:Tab>
+                <engine:Tab label="Text to Image">
+                    <engine:Button text="Generate&#x9;" name="text-generate-button" />
                 </engine:Tab>
                 <engine:Tab label="Image to Image">
-                    <engine:DropdownField label="Image" />
-                    <engine:Slider label="Strength" value="42" high-value="100" />
+                    <engine:DropdownField label="Image" choices="People and a dog,A posing man" index="0" name="image-selector" />
+                    <engine:VisualElement name="image-strength-row" style="flex-direction: row;">
+                        <engine:Slider label="Strength" name="image-strength" high-value="1" style="flex-grow: 1;">
+                            <Bindings>
+                                <engine:DataBinding property="value" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Slider>
+                        <engine:Label name="image-strength-label" class="value-label">
+                            <Bindings>
+                                <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Label>
+                    </engine:VisualElement>
+                    <engine:Button text="Generate&#x9;" name="image-generate-button" />
                 </engine:Tab>
-                <engine:Tab label="Text to Image" />
             </engine:TabView>
         </engine:VisualElement>
         <engine:VisualElement name="space" style="flex-grow: 1; flex-shrink: 0;" />
