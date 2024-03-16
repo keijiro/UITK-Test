@@ -46,8 +46,32 @@
                 </engine:VisualElement>
             </engine:VisualElement>
             <engine:TabView name="image-source-tabs">
+                <engine:Tab label="Image to Image">
+                    <engine:DropdownField label="Image" name="image-selector" data-source-type="SourceSelector, Assembly-CSharp">
+                        <Bindings>
+                            <engine:DataBinding property="choices" data-source-path="ImageNameList" />
+                        </Bindings>
+                    </engine:DropdownField>
+                    <engine:VisualElement name="image-strength-row" style="flex-direction: row;">
+                        <engine:Slider label="Strength" name="image-strength" high-value="1" style="flex-grow: 1;">
+                            <Bindings>
+                                <engine:DataBinding property="value" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Slider>
+                        <engine:Label name="image-strength-label" class="value-label">
+                            <Bindings>
+                                <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
+                            </Bindings>
+                        </engine:Label>
+                    </engine:VisualElement>
+                    <engine:Button text="Generate&#x9;" name="image-generate-button" />
+                </engine:Tab>
                 <engine:Tab label="Webcam to Image">
-                    <engine:DropdownField label="Device" choices="FaceTime HD camera,USB video,Built-in Webcam" index="0" name="webcam-selector" />
+                    <engine:DropdownField label="Device" name="webcam-selector" data-source-type="SourceSelector, Assembly-CSharp">
+                        <Bindings>
+                            <engine:DataBinding property="choices" data-source-path="WebcamNameList" />
+                        </Bindings>
+                    </engine:DropdownField>
                     <engine:VisualElement name="webcam-strength-row" style="flex-direction: row;">
                         <engine:Slider label="Strength" name="webcam-strength" high-value="1" style="flex-grow: 1;">
                             <Bindings>
@@ -64,22 +88,6 @@
                 </engine:Tab>
                 <engine:Tab label="Text to Image">
                     <engine:Button text="Generate&#x9;" name="text-generate-button" />
-                </engine:Tab>
-                <engine:Tab label="Image to Image">
-                    <engine:DropdownField label="Image" choices="People and a dog,A posing man" index="0" name="image-selector" />
-                    <engine:VisualElement name="image-strength-row" style="flex-direction: row;">
-                        <engine:Slider label="Strength" name="image-strength" high-value="1" style="flex-grow: 1;">
-                            <Bindings>
-                                <engine:DataBinding property="value" data-source-path="strength" />
-                            </Bindings>
-                        </engine:Slider>
-                        <engine:Label name="image-strength-label" class="value-label">
-                            <Bindings>
-                                <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
-                            </Bindings>
-                        </engine:Label>
-                    </engine:VisualElement>
-                    <engine:Button text="Generate&#x9;" name="image-generate-button" />
                 </engine:Tab>
             </engine:TabView>
         </engine:VisualElement>

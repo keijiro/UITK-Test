@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GeneratorSettings
   m_EditorClassIdentifier: 
   prompt: The quick brown fox jumps over the lazy dog
-  stepCount: 10
+  stepCount: 9
   seed: 4096
   guidance: 10
   strength: 0.5
