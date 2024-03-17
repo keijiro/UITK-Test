@@ -13,11 +13,11 @@
                         <engine:DataBinding property="value" data-source-path="stepCount" />
                     </Bindings>
                 </engine:SliderInt>
-                <engine:Label name="step-count-label" class="value-label">
+                <engine:FloatField name="step-count-field" class="value-field">
                     <Bindings>
-                        <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="stepCount" />
+                        <engine:DataBinding property="value" data-source-path="stepCount" />
                     </Bindings>
-                </engine:Label>
+                </engine:FloatField>
             </engine:VisualElement>
             <engine:VisualElement name="seed-row" style="flex-grow: 1; flex-direction: row;">
                 <engine:SliderInt label="Seed" high-value="65536" name="seed-slider" style="flex-grow: 1;">
@@ -25,11 +25,11 @@
                         <engine:DataBinding property="value" data-source-path="seed" />
                     </Bindings>
                 </engine:SliderInt>
-                <engine:Label name="seed-label" class="value-label">
+                <engine:IntegerField name="seed-field" class="value-field">
                     <Bindings>
-                        <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="seed" />
+                        <engine:DataBinding property="value" data-source-path="seed" />
                     </Bindings>
-                </engine:Label>
+                </engine:IntegerField>
             </engine:VisualElement>
             <engine:VisualElement name="guidance-row" style="flex-grow: 1; flex-direction: row;">
                 <engine:Slider label="Guidance" high-value="30" name="guidance-slider" style="flex-grow: 1;">
@@ -37,11 +37,11 @@
                         <engine:DataBinding property="value" data-source-path="guidance" />
                     </Bindings>
                 </engine:Slider>
-                <engine:Label name="guidance-label" class="value-label">
+                <engine:FloatField name="guidance-field" class="value-field">
                     <Bindings>
-                        <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="guidance" />
+                        <engine:DataBinding property="value" data-source-path="guidance" />
                     </Bindings>
-                </engine:Label>
+                </engine:FloatField>
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="spacer" style="flex-grow: 1; flex-shrink: 1;" />
@@ -58,11 +58,11 @@
                             <engine:DataBinding property="value" data-source-path="strength" />
                         </Bindings>
                     </engine:Slider>
-                    <engine:Label name="image-strength-label" class="value-label">
+                    <engine:FloatField name="image-strength-field" class="value-field">
                         <Bindings>
-                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
+                            <engine:DataBinding property="value" data-source-path="strength" />
                         </Bindings>
-                    </engine:Label>
+                    </engine:FloatField>
                 </engine:VisualElement>
                 <engine:Button text="Generate&#x9;" name="image-generate-button" />
             </engine:Tab>
@@ -78,11 +78,11 @@
                             <engine:DataBinding property="value" data-source-path="strength" />
                         </Bindings>
                     </engine:Slider>
-                    <engine:Label name="webcam-strength-label" class="value-label">
+                    <engine:FloatField name="webcam-strength-field" class="value-field">
                         <Bindings>
-                            <engine:DataBinding property="text" binding-mode="ToTarget" data-source-path="strength" />
+                            <engine:DataBinding property="value" data-source-path="strength" />
                         </Bindings>
-                    </engine:Label>
+                    </engine:FloatField>
                 </engine:VisualElement>
                 <engine:Button text="Generate&#x9;" name="webcam-generate-button" />
             </engine:Tab>

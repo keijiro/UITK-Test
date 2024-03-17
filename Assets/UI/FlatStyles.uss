@@ -156,7 +156,10 @@ Tab {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-.value-label {
-    width: 70px;
-    -unity-text-align: middle-right;
+.value-field {
+    min-width: 100px;
+}
+
+.value-field .unity-text-element {
+    -unity-text-align: upper-right;
 }
