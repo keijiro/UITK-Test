@@ -85,7 +85,7 @@ Tab {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-    min-width: 300px;
+    min-width: 192px;
     background-color: rgba(0, 0, 0, 0);
 }
 
@@ -109,11 +109,6 @@ Tab {
 }
 
 .unity-tab__header:hover {
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    min-width: 300px;
     background-color: rgba(0, 0, 0, 0);
 }
 

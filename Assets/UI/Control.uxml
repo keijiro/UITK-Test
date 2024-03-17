@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/FlatStyles.uss?fileID=7433441132597879392&amp;guid=f66488d5732f645af8d4ea5c4842cb98&amp;type=3#FlatStyles" />
-    <engine:VisualElement name="control-panel" data-source="project://database/Assets/GeneratorSettings.asset?fileID=11400000&amp;guid=be9e5417d77194ccd92f9f47b1e29ec0&amp;type=2#GeneratorSettings" style="flex-grow: 0; background-color: rgb(55, 59, 65);">
-        <engine:VisualElement name="main-control-container" style="flex-grow: 1; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">
+    <engine:VisualElement name="control-panel" data-source="project://database/Assets/GeneratorSettings.asset?fileID=11400000&amp;guid=be9e5417d77194ccd92f9f47b1e29ec0&amp;type=2#GeneratorSettings" style="flex-grow: 1; background-color: rgb(55, 59, 65);">
+        <engine:VisualElement name="main-control-container" style="margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">
             <engine:TextField label="Prompt" name="prompt">
                 <Bindings>
                     <engine:DataBinding property="value" data-source-path="prompt" />
@@ -44,6 +44,7 @@
                 </engine:Label>
             </engine:VisualElement>
         </engine:VisualElement>
+        <engine:VisualElement name="spacer" style="flex-grow: 1; flex-shrink: 1;" />
         <engine:TabView name="image-source-tabs">
             <engine:Tab label="Image to Image">
                 <engine:DropdownField label="Image" name="image-selector" data-source-type="SourceSelector, Assembly-CSharp">
