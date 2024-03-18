@@ -23,7 +23,9 @@
                 </Bindings>
             </engine:Slider>
         </engine:VisualElement>
-        <engine:VisualElement name="spacer" style="flex-grow: 1; flex-shrink: 1;" />
+        <engine:VisualElement name="info-container" style="flex-grow: 1; flex-shrink: 1; flex-direction: column-reverse; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">
+            <engine:Label name="log-label" text="Generating..." style="-unity-text-align: upper-right;" />
+        </engine:VisualElement>
         <engine:TabView name="image-source-tabs">
             <engine:Tab label="Image to Image">
                 <engine:DropdownField label="Image" name="image-selector" data-source-type="SourceSelector, Assembly-CSharp">
