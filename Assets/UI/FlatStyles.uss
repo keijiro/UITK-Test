@@ -156,10 +156,10 @@ Tab {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-.value-field {
+.unity-base-slider__text-field {
     min-width: 100px;
 }
 
-.value-field .unity-text-element {
+.unity-base-slider .unity-base-text-field__input--single-line {
     -unity-text-align: upper-right;
 }
