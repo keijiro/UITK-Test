@@ -1,0 +1,15 @@
+Label {
+    font-size: 40px;
+    transition-duration: 2s;
+    width: 60px;
+    height: 60px;
+    -unity-text-align: middle-center;
+    transition-timing-function: ease-out;
+}
+
+Label:hover {
+    font-size: 150px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out-back;
+    rotate: 34deg;
+}
