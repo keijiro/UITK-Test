@@ -5,7 +5,6 @@
 //
 // Released into the public domain
 
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
