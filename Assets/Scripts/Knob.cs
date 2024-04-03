@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,9 @@ public partial class Knob : VisualElement
 
     [UxmlAttribute, Range(0, 1)]
     public float value { get; set; } = 0.5f;
+
+    [UxmlAttribute]
+    public string label { get; set; } = "Knob";
 
     #endregion
 
@@ -20,6 +24,9 @@ public partial class Knob : VisualElement
 
     #region Style properties
 
+    static CustomStyleProperty<int> _trackWidthProp
+      = new CustomStyleProperty<int>("--track-width");
+
     static CustomStyleProperty<Color> _trackColorProp
       = new CustomStyleProperty<Color>("--track-color");
 
@@ -30,6 +37,7 @@ public partial class Knob : VisualElement
 
     #region Runtime members
 
+    int _trackWidth = 10;
     Color _trackColor = Color.gray;
     Color _valueColor = Color.red;
     Label _label;
@@ -54,28 +62,43 @@ public partial class Knob : VisualElement
 
     void UpdateCustomStyles()
     {
-        if (customStyle.TryGetValue(_valueColorProp, out _valueColor) ||
-            customStyle.TryGetValue(_trackColorProp, out _trackColor))
-            MarkDirtyRepaint();
+        var dirty = false;
+        dirty |= customStyle.TryGetValue(_trackWidthProp, out _trackWidth);
+        dirty |= customStyle.TryGetValue(_trackColorProp, out _trackColor);
+        dirty |= customStyle.TryGetValue(_valueColorProp, out _valueColor);
+        if (dirty) MarkDirtyRepaint();
     }
 
     void GenerateVisualContent(MeshGenerationContext context)
     {
-        var (w, h) = (contentRect.width / 2, contentRect.height / 2);
+        var radius = math.min(contentRect.width, contentRect.height) / 2;
+        var center = math.float2(contentRect.width / 2, radius);
+        radius -= _trackWidth / 2;
+
+        var tip_deg = 136 + 269 * value;
+        var tip_rad = math.radians(tip_deg);
+        var tip_vec = math.float2(math.cos(tip_rad), math.sin(tip_rad));
 
         var painter = context.painter2D;
-        painter.lineWidth = 10.0f;
-        painter.lineCap = LineCap.Butt;
+        painter.lineWidth = _trackWidth;
+        painter.lineCap = LineCap.Round;
 
         painter.strokeColor = _trackColor;
         painter.BeginPath();
-        painter.Arc(new Vector2(w, h), w, 0, 360);
+        painter.Arc(center, radius, 135, 135 + 270);
         painter.Stroke();
 
         painter.strokeColor = _valueColor;
         painter.BeginPath();
-        painter.Arc(new Vector2(w, h), w, 90, 360 * value - 90);
+        painter.Arc(center, radius, 135, tip_deg);
         painter.Stroke();
+
+        painter.BeginPath();
+        painter.MoveTo(center + tip_vec * radius / 2);
+        painter.LineTo(center + tip_vec * radius);
+        painter.Stroke();
+
+        _label.text = label;
     }
 
     #endregion
