@@ -11,7 +11,7 @@ public partial class Knob : VisualElement
     public float value { get; set; } = 0.5f;
 
     [UxmlAttribute]
-    public string label { get; set; } = "Knob";
+    public string label { get => _label.text; set => _label.text = value; }
 
     #endregion
 
@@ -97,8 +97,6 @@ public partial class Knob : VisualElement
         painter.MoveTo(center + tip_vec * radius / 2);
         painter.LineTo(center + tip_vec * radius);
         painter.Stroke();
-
-        _label.text = label;
     }
 
     #endregion
