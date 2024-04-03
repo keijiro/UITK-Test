@@ -7,18 +7,23 @@ public partial class Knob : VisualElement
 {
     #region Public property
 
-    [UxmlAttribute, Range(0, 1)]
-    public float value { get; set; } = 0.5f;
+    [UxmlAttribute]
+    public float value { get; set; } = 50;
 
     [UxmlAttribute]
-    public string label { get => _label.text; set => _label.text = value; }
+    public float lowValue { get; set; } = 0;
+
+    [UxmlAttribute]
+    public float highValue { get; set; } = 100;
+
+    [UxmlAttribute]
+    public float sensitivity { get; set; } = 1;
 
     #endregion
 
     #region Static public property
 
-    static string ussClassName => "knob";
-    static string ussLabelClassName => "knob__label";
+    public static string ussClassName => "knob";
 
     #endregion
 
@@ -40,7 +45,6 @@ public partial class Knob : VisualElement
     int _trackWidth = 10;
     Color _trackColor = Color.gray;
     Color _valueColor = Color.red;
-    Label _label;
 
     #endregion
 
@@ -58,8 +62,9 @@ public partial class Knob : VisualElement
     {
         if (_draggedFrom == null) return;
         var (origin, baseValue) = ((float, float))_draggedFrom;
-        var delta = (evt.mousePosition.y - origin) * 0.01f;
-        this.value = math.saturate(baseValue - delta);
+        var delta = (origin - evt.mousePosition.y) * sensitivity / 100;
+        var range = highValue - lowValue;
+        this.value = math.clamp(baseValue + delta * range, lowValue, highValue);
         MarkDirtyRepaint();
     }
 
@@ -76,10 +81,6 @@ public partial class Knob : VisualElement
 
     public Knob()
     {
-        _label = new Label();
-        _label.AddToClassList(ussLabelClassName);
-        Add(_label);
-
         AddToClassList(ussClassName);
 
         RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
@@ -101,11 +102,10 @@ public partial class Knob : VisualElement
 
     void GenerateVisualContent(MeshGenerationContext context)
     {
-        var radius = math.min(contentRect.width, contentRect.height) / 2;
-        var center = math.float2(contentRect.width / 2, radius);
-        radius -= _trackWidth / 2;
+        var center = math.float2(contentRect.width, contentRect.height) / 2;
+        var radius = math.min(center.x, center.y) - _trackWidth / 2;
 
-        var tip_deg = 136 + 269 * value;
+        var tip_deg = 136 + 269 * (value - lowValue) / (highValue - lowValue);
         var tip_rad = math.radians(tip_deg);
         var tip_vec = math.float2(math.cos(tip_rad), math.sin(tip_rad));
 
