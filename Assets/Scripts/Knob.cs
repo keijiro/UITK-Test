@@ -44,6 +44,34 @@ public partial class Knob : VisualElement
 
     #endregion
 
+    #region Mouse drag callbacks
+
+    (float position, float value)? _draggedFrom;
+
+    void OnMouseDown(MouseDownEvent evt)
+    {
+        MouseCaptureController.CaptureMouse(this);
+        _draggedFrom = (evt.mousePosition.y, value);
+    }
+
+    void OnMouseMove(MouseMoveEvent evt)
+    {
+        if (_draggedFrom == null) return;
+        var (origin, baseValue) = ((float, float))_draggedFrom;
+        var delta = (evt.mousePosition.y - origin) * 0.01f;
+        this.value = math.saturate(baseValue - delta);
+        MarkDirtyRepaint();
+    }
+
+    void OnMouseUp(MouseUpEvent evt)
+    {
+        if (_draggedFrom == null) return;
+        MouseCaptureController.ReleaseMouse(this);
+        _draggedFrom = null;
+    }
+
+    #endregion
+
     #region Visual element implementation
 
     public Knob()
@@ -54,13 +82,15 @@ public partial class Knob : VisualElement
 
         AddToClassList(ussClassName);
 
-        RegisterCallback<CustomStyleResolvedEvent>
-          (e => (e.currentTarget as Knob).UpdateCustomStyles());
+        RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
+        RegisterCallback<MouseDownEvent>(OnMouseDown);
+        RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        RegisterCallback<MouseUpEvent>(OnMouseUp);
 
         generateVisualContent += GenerateVisualContent;
     }
 
-    void UpdateCustomStyles()
+    void UpdateCustomStyles(CustomStyleResolvedEvent _)
     {
         var dirty = false;
         dirty |= customStyle.TryGetValue(_trackWidthProp, out _trackWidth);
