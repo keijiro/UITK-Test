@@ -115,6 +115,7 @@ public partial class Knob : BaseField<float>
     {
         var center = context.visualElement.contentRect.center;
         var radius = Mathf.Min(center.x, center.y) - _trackWidth / 2;
+        center.y += radius * 0.13f;
 
         var tip_deg = 136 + 269 * (value - lowValue) / (highValue - lowValue);
         var tip_rad = Mathf.Deg2Rad * tip_deg;
