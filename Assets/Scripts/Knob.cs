@@ -3,12 +3,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-public partial class Knob : VisualElement
+public partial class Knob : BaseField<float>
 {
     #region Public property
-
-    [UxmlAttribute]
-    public float value { get; set; } = 50;
 
     [UxmlAttribute]
     public float lowValue { get; set; } = 0;
@@ -23,7 +20,8 @@ public partial class Knob : VisualElement
 
     #region Static public property
 
-    public static string ussClassName => "knob";
+    public static readonly new string ussClassName = "knob";
+    public static readonly new string inputUssClassName = "knob__input";
 
     #endregion
 
@@ -45,6 +43,7 @@ public partial class Knob : VisualElement
     int _trackWidth = 10;
     Color _trackColor = Color.gray;
     Color _valueColor = Color.red;
+    VisualElement _input;
 
     #endregion
 
@@ -79,9 +78,17 @@ public partial class Knob : VisualElement
 
     #region Visual element implementation
 
-    public Knob()
+    public Knob() : this(null) {}
+
+    public Knob(string label) : base(label, new())
     {
         AddToClassList(ussClassName);
+
+        _input = this.Q(className: BaseField<float>.inputUssClassName);
+        _input.AddToClassList(inputUssClassName);
+        Add(_input);
+
+        labelElement.AddToClassList("knob__label");
 
         RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
         RegisterCallback<MouseDownEvent>(OnMouseDown);
@@ -102,8 +109,9 @@ public partial class Knob : VisualElement
 
     void GenerateVisualContent(MeshGenerationContext context)
     {
-        var center = math.float2(contentRect.width, contentRect.height) / 2;
-        var radius = math.min(center.x, center.y) - _trackWidth / 2;
+        var rect = _input.contentRect;
+        var center = (float2)_input.ChangeCoordinatesTo(this, rect.center);
+        var radius = math.min(rect.width, rect.height) / 2 - _trackWidth / 2;
 
         var tip_deg = 136 + 269 * (value - lowValue) / (highValue - lowValue);
         var tip_rad = math.radians(tip_deg);
