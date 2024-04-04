@@ -35,14 +35,48 @@ public partial class Knob : BaseField<float>
     static CustomStyleProperty<Color> _valueColorProp
       = new CustomStyleProperty<Color>("--value-color");
 
-    #endregion
-
-    #region Runtime members
-
-    int _trackWidth = 10;
     Color _trackColor = Color.gray;
     Color _valueColor = Color.red;
+    int _trackWidth = 10;
+
+    #endregion
+
+    #region Visual element implementation
+
     VisualElement _input;
+
+    public Knob() : this(null) {}
+
+    public Knob(string label) : base(label, new())
+    {
+        // This element
+        AddToClassList(ussClassName);
+        focusable = false;
+
+        // Label element
+        labelElement.AddToClassList("knob__label");
+
+        // Input element
+        _input = this.Q(className: BaseField<float>.inputUssClassName);
+        _input.AddToClassList(inputUssClassName);
+        Add(_input);
+
+        // Input element callbacks
+        _input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
+        _input.RegisterCallback<MouseDownEvent>(OnMouseDown);
+        _input.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        _input.RegisterCallback<MouseUpEvent>(OnMouseUp);
+        _input.generateVisualContent += GenerateVisualContent;
+    }
+
+    void UpdateCustomStyles(CustomStyleResolvedEvent evt)
+    {
+        var (style, dirty) = (evt.customStyle, false);
+        dirty |= style.TryGetValue(_trackWidthProp, out _trackWidth);
+        dirty |= style.TryGetValue(_trackColorProp, out _trackColor);
+        dirty |= style.TryGetValue(_valueColorProp, out _valueColor);
+        if (dirty) MarkDirtyRepaint();
+    }
 
     #endregion
 
@@ -75,39 +109,7 @@ public partial class Knob : BaseField<float>
 
     #endregion
 
-    #region Visual element implementation
-
-    public Knob() : this(null) {}
-
-    public Knob(string label) : base(label, new())
-    {
-        AddToClassList(ussClassName);
-
-        _input = this.Q(className: BaseField<float>.inputUssClassName);
-        _input.AddToClassList(inputUssClassName);
-        Add(_input);
-
-        labelElement.AddToClassList("knob__label");
-
-        RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
-
-        _input.RegisterCallback<MouseDownEvent>(OnMouseDown);
-        _input.RegisterCallback<MouseMoveEvent>(OnMouseMove);
-        _input.RegisterCallback<MouseUpEvent>(OnMouseUp);
-
-        _input.generateVisualContent += GenerateVisualContent;
-
-        focusable = false;
-    }
-
-    void UpdateCustomStyles(CustomStyleResolvedEvent _)
-    {
-        var dirty = false;
-        dirty |= customStyle.TryGetValue(_trackWidthProp, out _trackWidth);
-        dirty |= customStyle.TryGetValue(_trackColorProp, out _trackColor);
-        dirty |= customStyle.TryGetValue(_valueColorProp, out _valueColor);
-        if (dirty) MarkDirtyRepaint();
-    }
+    #region Visual construction callback
 
     void GenerateVisualContent(MeshGenerationContext context)
     {

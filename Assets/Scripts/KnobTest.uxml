@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Knob.uss?fileID=7433441132597879392&amp;guid=363f605b3a3d341169dd49ed21c614b1&amp;type=3#Knob" />
     <engine:VisualElement name="root" data-source-type="KnobTest, Assembly-CSharp" style="margin-top: 40px; margin-right: 40px; margin-bottom: 40px; margin-left: 40px;">
-        <Knob label="Param1" value="50" style="flex-shrink: 1;" />
+        <Knob label="Label" value="50" />
     </engine:VisualElement>
 </engine:UXML>

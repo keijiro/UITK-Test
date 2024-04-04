@@ -1,18 +1,15 @@
 .knob__input {
-    --track-width: 15;
+    --track-width: 10;
     --track-color: rgb(48, 48, 48);
     --value-color: rgb(192, 192, 192);
     --label-color: white;
-    flex-shrink: 1;
-    flex-grow: 0;
     width: 60px;
     height: 60px;
     min-width: 60px;
     min-height: 60px;
-    -unity-text-align: middle-left;
+    flex-shrink: 1;
+    flex-grow: 0;
 }
 
 .knob__label {
-    min-width: auto;
-    -unity-text-align: middle-left;
 }
