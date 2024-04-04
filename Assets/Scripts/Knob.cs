@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -53,7 +52,7 @@ public partial class Knob : BaseField<float>
 
     void OnMouseDown(MouseDownEvent evt)
     {
-        MouseCaptureController.CaptureMouse(this);
+        MouseCaptureController.CaptureMouse(_input);
         _draggedFrom = (evt.mousePosition.y, value);
     }
 
@@ -63,14 +62,14 @@ public partial class Knob : BaseField<float>
         var (origin, baseValue) = ((float, float))_draggedFrom;
         var delta = (origin - evt.mousePosition.y) * sensitivity / 100;
         var range = highValue - lowValue;
-        this.value = math.clamp(baseValue + delta * range, lowValue, highValue);
-        MarkDirtyRepaint();
+        value = Mathf.Clamp(baseValue + delta * range, lowValue, highValue);
+        _input.MarkDirtyRepaint();
     }
 
     void OnMouseUp(MouseUpEvent evt)
     {
         if (_draggedFrom == null) return;
-        MouseCaptureController.ReleaseMouse(this);
+        MouseCaptureController.ReleaseMouse(_input);
         _draggedFrom = null;
     }
 
@@ -91,11 +90,14 @@ public partial class Knob : BaseField<float>
         labelElement.AddToClassList("knob__label");
 
         RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
-        RegisterCallback<MouseDownEvent>(OnMouseDown);
-        RegisterCallback<MouseMoveEvent>(OnMouseMove);
-        RegisterCallback<MouseUpEvent>(OnMouseUp);
 
-        generateVisualContent += GenerateVisualContent;
+        _input.RegisterCallback<MouseDownEvent>(OnMouseDown);
+        _input.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        _input.RegisterCallback<MouseUpEvent>(OnMouseUp);
+
+        _input.generateVisualContent += GenerateVisualContent;
+
+        focusable = false;
     }
 
     void UpdateCustomStyles(CustomStyleResolvedEvent _)
@@ -109,13 +111,12 @@ public partial class Knob : BaseField<float>
 
     void GenerateVisualContent(MeshGenerationContext context)
     {
-        var rect = _input.contentRect;
-        var center = (float2)_input.ChangeCoordinatesTo(this, rect.center);
-        var radius = math.min(rect.width, rect.height) / 2 - _trackWidth / 2;
+        var center = context.visualElement.contentRect.center;
+        var radius = Mathf.Min(center.x, center.y) - _trackWidth / 2;
 
         var tip_deg = 136 + 269 * (value - lowValue) / (highValue - lowValue);
-        var tip_rad = math.radians(tip_deg);
-        var tip_vec = math.float2(math.cos(tip_rad), math.sin(tip_rad));
+        var tip_rad = Mathf.Deg2Rad * tip_deg;
+        var tip_vec = new Vector2(Mathf.Cos(tip_rad), Mathf.Sin(tip_rad));
 
         var painter = context.painter2D;
         painter.lineWidth = _trackWidth;
