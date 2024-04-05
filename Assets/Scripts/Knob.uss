@@ -7,7 +7,6 @@
     --track-width: 10;
     --track-color: rgb(90, 90, 90);
     --value-color: rgb(192, 192, 192);
-    --label-color: white;
     width: 60px;
     height: 60px;
     min-width: 60px;
