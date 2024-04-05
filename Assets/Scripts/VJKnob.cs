@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
+namespace VJUI {
+
 [UxmlElement]
-public partial class Knob : BaseField<float>
+public partial class VJKnob : BaseField<float>
 {
     #region Public property
 
@@ -19,25 +21,26 @@ public partial class Knob : BaseField<float>
 
     #region Static public property
 
-    public static readonly new string ussClassName = "knob";
-    public static readonly new string inputUssClassName = "knob__input";
+    public static readonly new string ussClassName = "vj-knob";
+    public static readonly new string labelUssClassName = "vj-knob__label";
+    public static readonly new string inputUssClassName = "vj-knob__input";
 
     #endregion
 
     #region Style properties
 
-    static CustomStyleProperty<int> _trackWidthProp
-      = new CustomStyleProperty<int>("--track-width");
+    static CustomStyleProperty<int> _lineWidthProp
+      = new CustomStyleProperty<int>("--line-width");
 
-    static CustomStyleProperty<Color> _trackColorProp
-      = new CustomStyleProperty<Color>("--track-color");
+    static CustomStyleProperty<Color> _primaryColorProp
+      = new CustomStyleProperty<Color>("--primary-color");
 
-    static CustomStyleProperty<Color> _valueColorProp
-      = new CustomStyleProperty<Color>("--value-color");
+    static CustomStyleProperty<Color> _secondaryColorProp
+      = new CustomStyleProperty<Color>("--secondary-color");
 
-    Color _trackColor = Color.gray;
-    Color _valueColor = Color.red;
-    int _trackWidth = 10;
+    Color _primaryColor = Color.white;
+    Color _secondaryColor = Color.gray;
+    int _lineWidth = 10;
 
     #endregion
 
@@ -45,16 +48,16 @@ public partial class Knob : BaseField<float>
 
     VisualElement _input;
 
-    public Knob() : this(null) {}
+    public VJKnob() : this(null) {}
 
-    public Knob(string label) : base(label, new())
+    public VJKnob(string label) : base(label, new())
     {
         // This element
         AddToClassList(ussClassName);
         focusable = false;
 
         // Label element
-        labelElement.AddToClassList("knob__label");
+        labelElement.AddToClassList(labelUssClassName);
 
         // Input element
         _input = this.Q(className: BaseField<float>.inputUssClassName);
@@ -72,9 +75,9 @@ public partial class Knob : BaseField<float>
     void UpdateCustomStyles(CustomStyleResolvedEvent evt)
     {
         var (style, dirty) = (evt.customStyle, false);
-        dirty |= style.TryGetValue(_trackWidthProp, out _trackWidth);
-        dirty |= style.TryGetValue(_trackColorProp, out _trackColor);
-        dirty |= style.TryGetValue(_valueColorProp, out _valueColor);
+        dirty |= style.TryGetValue(_lineWidthProp, out _lineWidth);
+        dirty |= style.TryGetValue(_primaryColorProp, out _primaryColor);
+        dirty |= style.TryGetValue(_secondaryColorProp, out _secondaryColor);
         if (dirty) MarkDirtyRepaint();
     }
 
@@ -114,25 +117,24 @@ public partial class Knob : BaseField<float>
     void GenerateVisualContent(MeshGenerationContext context)
     {
         var center = context.visualElement.contentRect.center;
-        var radius = Mathf.Min(center.x, center.y) - _trackWidth / 2;
-        center.y += radius * 0.13f;
+        var radius = Mathf.Min(center.x, center.y) - _lineWidth / 2;
 
-        var tip_deg = 136 + 269 * (value - lowValue) / (highValue - lowValue);
+        var tip_deg = 120 + 300 * (value - lowValue) / (highValue - lowValue);
         var tip_rad = Mathf.Deg2Rad * tip_deg;
         var tip_vec = new Vector2(Mathf.Cos(tip_rad), Mathf.Sin(tip_rad));
 
         var painter = context.painter2D;
-        painter.lineWidth = _trackWidth;
+        painter.lineWidth = _lineWidth;
         painter.lineCap = LineCap.Round;
 
-        painter.strokeColor = _trackColor;
+        painter.strokeColor = _secondaryColor;
         painter.BeginPath();
-        painter.Arc(center, radius, 135, 135 + 270);
+        painter.Arc(center, radius, 120, 120 + 300);
         painter.Stroke();
 
-        painter.strokeColor = _valueColor;
+        painter.strokeColor = _primaryColor;
         painter.BeginPath();
-        painter.Arc(center, radius, 135, tip_deg);
+        painter.Arc(center, radius, 120, tip_deg);
         painter.Stroke();
 
         painter.BeginPath();
@@ -143,3 +145,5 @@ public partial class Knob : BaseField<float>
 
     #endregion
 }
+
+} // namespace VJUI

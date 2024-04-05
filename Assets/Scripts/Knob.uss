@@ -1,21 +1,44 @@
-.knob {
+:root {
+    --vj-ui-line-width: 10;
+    --vj-ui-primary-color: rgb(192, 192, 192);
+    --vj-ui-secondary-color: rgb(90, 90, 90);
+}
+
+.vj-knob {
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 
-.knob__input {
-    --track-width: 10;
-    --track-color: rgb(90, 90, 90);
-    --value-color: rgb(192, 192, 192);
+.vj-knob__input {
+    --line-width: var(--vj-ui-line-width);
+    --primary-color: var(--vj-ui-primary-color);
+    --secondary-color: var(--vj-ui-secondary-color);
     width: 60px;
     height: 60px;
-    min-width: 60px;
-    min-height: 60px;
-    flex-shrink: 1;
-    flex-grow: 0;
 }
 
-.knob__label {
+.vj-knob__label {
+    width: auto;
+    min-width: auto;
+    height: auto;
+    min-height: auto;
+}
+
+.vj-toggle {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.vj-toggle__input {
+    --line-width: var(--vj-ui-line-width);
+    color: var(--vj-ui-primary-color);
+    width: 60px;
+    height: 60px;
+}
+
+.vj-toggle__label {
     width: auto;
     min-width: auto;
     height: auto;
@@ -24,16 +47,9 @@
 
 #knob-container Label {
     -unity-text-align: middle-center;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+    margin: 4px;
+    padding: 0;
     color: rgb(255, 255, 255);
-    width: 90px;
 }
 
 #knob-container {
