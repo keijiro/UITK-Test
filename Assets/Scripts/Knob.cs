@@ -63,9 +63,9 @@ public partial class Knob : BaseField<float>
 
         // Input element callbacks
         _input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
-        _input.RegisterCallback<MouseDownEvent>(OnMouseDown);
-        _input.RegisterCallback<MouseMoveEvent>(OnMouseMove);
-        _input.RegisterCallback<MouseUpEvent>(OnMouseUp);
+        _input.RegisterCallback<PointerDownEvent>(OnPointerDown);
+        _input.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+        _input.RegisterCallback<PointerUpEvent>(OnPointerUp);
         _input.generateVisualContent += GenerateVisualContent;
     }
 
@@ -80,30 +80,30 @@ public partial class Knob : BaseField<float>
 
     #endregion
 
-    #region Mouse drag callbacks
+    #region Pointer callbacks
 
     (float position, float value)? _draggedFrom;
 
-    void OnMouseDown(MouseDownEvent evt)
+    void OnPointerDown(PointerDownEvent evt)
     {
-        MouseCaptureController.CaptureMouse(_input);
-        _draggedFrom = (evt.mousePosition.y, value);
+        PointerCaptureHelper.CapturePointer(_input, evt.pointerId);
+        _draggedFrom = (evt.position.y, value);
     }
 
-    void OnMouseMove(MouseMoveEvent evt)
+    void OnPointerMove(PointerMoveEvent evt)
     {
         if (_draggedFrom == null) return;
         var (origin, baseValue) = ((float, float))_draggedFrom;
-        var delta = (origin - evt.mousePosition.y) * sensitivity / 100;
+        var delta = (origin - evt.position.y) * sensitivity / 100;
         var range = highValue - lowValue;
         value = Mathf.Clamp(baseValue + delta * range, lowValue, highValue);
         _input.MarkDirtyRepaint();
     }
 
-    void OnMouseUp(MouseUpEvent evt)
+    void OnPointerUp(PointerUpEvent evt)
     {
         if (_draggedFrom == null) return;
-        MouseCaptureController.ReleaseMouse(_input);
+        PointerCaptureHelper.ReleasePointer(_input, evt.pointerId);
         _draggedFrom = null;
     }
 
