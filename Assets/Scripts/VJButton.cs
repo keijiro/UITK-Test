@@ -4,25 +4,21 @@ using UnityEngine.UIElements;
 namespace VJUI {
 
 [UxmlElement]
-public partial class VJToggle : BaseField<bool>
+public partial class VJButton : BaseField<bool>
 {
     #region Static public property
 
-    public static readonly new string ussClassName = "vj-toggle";
-    public static readonly new string labelUssClassName = "vj-toggle__label";
-    public static readonly new string inputUssClassName = "vj-toggle__input";
+    public static readonly new string ussClassName = "vj-button";
+    public static readonly new string labelUssClassName = "vj-button__label";
+    public static readonly new string inputUssClassName = "vj-button__input";
 
     #endregion
 
     #region Style properties
 
-    static CustomStyleProperty<int> _lineWidthProp
-      = new CustomStyleProperty<int>("--line-width");
-
     static CustomStyleProperty<Color> _secondaryColorProp
       = new CustomStyleProperty<Color>("--secondary-color");
 
-    int _lineWidth = 10;
     Color _secondaryColor = Color.gray;
 
     #endregion
@@ -31,9 +27,9 @@ public partial class VJToggle : BaseField<bool>
 
     VisualElement _input;
 
-    public VJToggle() : this(null) {}
+    public VJButton() : this(null) {}
 
-    public VJToggle(string label) : base(label, new())
+    public VJButton(string label) : base(label, new())
     {
         // This element
         AddToClassList(ussClassName);
@@ -54,10 +50,8 @@ public partial class VJToggle : BaseField<bool>
 
     void UpdateCustomStyles(CustomStyleResolvedEvent evt)
     {
-        var (style, dirty) = (evt.customStyle, false);
-        dirty |= style.TryGetValue(_lineWidthProp, out _lineWidth);
-        dirty |= style.TryGetValue(_secondaryColorProp, out _secondaryColor);
-        if (dirty) MarkDirtyRepaint();
+        if (evt.customStyle.TryGetValue(_secondaryColorProp, out _secondaryColor))
+            MarkDirtyRepaint();
     }
 
     #endregion
@@ -67,21 +61,13 @@ public partial class VJToggle : BaseField<bool>
     void GenerateVisualContent(MeshGenerationContext context)
     {
         var center = context.visualElement.contentRect.center;
-        var outer = Mathf.Min(center.x, center.y) - _lineWidth / 2;
-        var inner = outer - _lineWidth;
+        var radius = Mathf.Min(center.x, center.y);
 
         var painter = context.painter2D;
-        painter.lineWidth = _lineWidth;
 
-        painter.strokeColor = _secondaryColor;
+        painter.fillColor = _secondaryColor;
         painter.BeginPath();
-        painter.Arc(center, outer, 0, 360);
-        painter.Stroke();
-
-        painter.fillColor = context.visualElement.resolvedStyle.color;
-        painter.lineWidth = 0;
-        painter.BeginPath();
-        painter.Arc(center, inner, 0, 360);
+        painter.Arc(center, radius, 0, 360);
         painter.Fill();
     }
 

@@ -32,15 +32,11 @@ public partial class VJKnob : BaseField<float>
     static CustomStyleProperty<int> _lineWidthProp
       = new CustomStyleProperty<int>("--line-width");
 
-    static CustomStyleProperty<Color> _primaryColorProp
-      = new CustomStyleProperty<Color>("--primary-color");
-
     static CustomStyleProperty<Color> _secondaryColorProp
       = new CustomStyleProperty<Color>("--secondary-color");
 
-    Color _primaryColor = Color.white;
-    Color _secondaryColor = Color.gray;
     int _lineWidth = 10;
+    Color _secondaryColor = Color.gray;
 
     #endregion
 
@@ -76,7 +72,6 @@ public partial class VJKnob : BaseField<float>
     {
         var (style, dirty) = (evt.customStyle, false);
         dirty |= style.TryGetValue(_lineWidthProp, out _lineWidth);
-        dirty |= style.TryGetValue(_primaryColorProp, out _primaryColor);
         dirty |= style.TryGetValue(_secondaryColorProp, out _secondaryColor);
         if (dirty) MarkDirtyRepaint();
     }
@@ -132,7 +127,7 @@ public partial class VJKnob : BaseField<float>
         painter.Arc(center, radius, 120, 120 + 300);
         painter.Stroke();
 
-        painter.strokeColor = _primaryColor;
+        painter.strokeColor = context.visualElement.resolvedStyle.color;
         painter.BeginPath();
         painter.Arc(center, radius, 120, tip_deg);
         painter.Stroke();

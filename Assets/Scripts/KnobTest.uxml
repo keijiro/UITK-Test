@@ -46,6 +46,14 @@
                     </Bindings>
                 </engine:Label>
             </engine:VisualElement>
+            <engine:VisualElement name="knob-container">
+                <VJUI.VJButton label="Button 1" />
+                <engine:Label text="False">
+                    <Bindings>
+                        <engine:DataBinding property="text" data-source-path="Toggle1" binding-mode="ToTarget" source-to-ui-converters="Knob 0-100" />
+                    </Bindings>
+                </engine:Label>
+            </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
