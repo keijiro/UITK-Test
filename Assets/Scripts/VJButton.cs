@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 namespace VJUI {
 
 [UxmlElement]
-public partial class VJButton : BaseField<bool>
+public partial class VJButton : BaseBoolField
 {
     #region Static public property
 
@@ -29,23 +29,25 @@ public partial class VJButton : BaseField<bool>
 
     public VJButton() : this(null) {}
 
-    public VJButton(string label) : base(label, new())
+    public VJButton(string label) : base(label)
     {
         // This element
-        AddToClassList(ussClassName);
-        focusable = false;
+        //AddToClassList(ussClassName);
 
         // Label element
-        labelElement.AddToClassList(labelUssClassName);
+        //labelElement.AddToClassList(labelUssClassName);
 
         // Input element
-        _input = this.Q(className: BaseField<bool>.inputUssClassName);
-        _input.AddToClassList(inputUssClassName);
-        Add(_input);
+        //_input = this.Q(className: BaseBoolField.inputUssClassName);
+        //_input.AddToClassList(inputUssClassName);
+        //Add(_input);
+
+        var checkmark = this.Q("unity-checkmark");
+        checkmark.AddToClassList("vj-button__checkmark");
 
         // Input element callbacks
-        _input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
-        _input.generateVisualContent += GenerateVisualContent;
+        //_input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
+        //_input.generateVisualContent += GenerateVisualContent;
     }
 
     void UpdateCustomStyles(CustomStyleResolvedEvent evt)
@@ -69,6 +71,12 @@ public partial class VJButton : BaseField<bool>
         painter.BeginPath();
         painter.Arc(center, radius, 0, 360);
         painter.Fill();
+    }
+
+    protected override void ToggleValue()
+    {
+        value = !value;
+        Debug.Log(value);
     }
 
     #endregion

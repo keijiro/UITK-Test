@@ -20,6 +20,9 @@ public sealed class KnobTest : MonoBehaviour
     [CreateProperty]
     public bool Toggle1 { get; set; }
 
+    [CreateProperty]
+    public bool Button1 { get; set; }
+
     [field:SerializeField]
     public Transform Target { get; set; } = null;
 

@@ -4,13 +4,14 @@ using UnityEngine.UIElements;
 namespace VJUI {
 
 [UxmlElement]
-public partial class VJToggle : BaseField<bool>
+public partial class VJToggle : BaseBoolField
 {
     #region Static public property
 
     public static readonly new string ussClassName = "vj-toggle";
     public static readonly new string labelUssClassName = "vj-toggle__label";
     public static readonly new string inputUssClassName = "vj-toggle__input";
+    public static readonly new string checkmarkUssClassName = "vj-toggle__checkmark";
 
     #endregion
 
@@ -33,11 +34,10 @@ public partial class VJToggle : BaseField<bool>
 
     public VJToggle() : this(null) {}
 
-    public VJToggle(string label) : base(label, new())
+    public VJToggle(string label) : base(label)
     {
         // This element
         AddToClassList(ussClassName);
-        focusable = false;
 
         // Label element
         labelElement.AddToClassList(labelUssClassName);
@@ -45,7 +45,10 @@ public partial class VJToggle : BaseField<bool>
         // Input element
         _input = this.Q(className: BaseField<bool>.inputUssClassName);
         _input.AddToClassList(inputUssClassName);
-        Add(_input);
+
+        // Checkmark element
+        var checkmark = this.Q("unity-checkmark");
+        checkmark.AddToClassList(checkmarkUssClassName);
 
         // Input element callbacks
         _input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
