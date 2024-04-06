@@ -50,7 +50,6 @@ public partial class VJKnob : BaseField<float>
     {
         // This element
         AddToClassList(ussClassName);
-        focusable = false;
 
         // Label element
         labelElement.AddToClassList(labelUssClassName);
@@ -58,14 +57,13 @@ public partial class VJKnob : BaseField<float>
         // Input element
         _input = this.Q(className: BaseField<float>.inputUssClassName);
         _input.AddToClassList(inputUssClassName);
-        Add(_input);
 
         // Input element callbacks
         _input.RegisterCallback<CustomStyleResolvedEvent>(UpdateCustomStyles);
-        _input.RegisterCallback<PointerDownEvent>(OnPointerDown);
-        _input.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-        _input.RegisterCallback<PointerUpEvent>(OnPointerUp);
         _input.generateVisualContent += GenerateVisualContent;
+
+        // Manipulation by mouse drag
+        _input.AddManipulator(new VJKnobDragger(this));
     }
 
     void UpdateCustomStyles(CustomStyleResolvedEvent evt)
@@ -76,33 +74,11 @@ public partial class VJKnob : BaseField<float>
         if (dirty) MarkDirtyRepaint();
     }
 
-    #endregion
-
-    #region Pointer callbacks
-
-    (float position, float value)? _draggedFrom;
-
-    void OnPointerDown(PointerDownEvent evt)
+    public override void SetValueWithoutNotify(float newValue)
     {
-        PointerCaptureHelper.CapturePointer(_input, evt.pointerId);
-        _draggedFrom = (evt.position.y, value);
-    }
-
-    void OnPointerMove(PointerMoveEvent evt)
-    {
-        if (_draggedFrom == null) return;
-        var (origin, baseValue) = ((float, float))_draggedFrom;
-        var delta = (origin - evt.position.y) * sensitivity / 100;
-        var range = highValue - lowValue;
-        value = Mathf.Clamp(baseValue + delta * range, lowValue, highValue);
+        newValue = Mathf.Clamp(newValue, lowValue, highValue);
+        base.SetValueWithoutNotify(newValue);
         _input.MarkDirtyRepaint();
-    }
-
-    void OnPointerUp(PointerUpEvent evt)
-    {
-        if (_draggedFrom == null) return;
-        PointerCaptureHelper.ReleasePointer(_input, evt.pointerId);
-        _draggedFrom = null;
     }
 
     #endregion
