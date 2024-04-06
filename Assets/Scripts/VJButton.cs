@@ -25,8 +25,6 @@ public partial class VJButton : BaseBoolField
 
     #region Visual element implementation
 
-    VisualElement _input;
-
     public VJButton() : this(null) {}
 
     public VJButton(string label) : base(label)

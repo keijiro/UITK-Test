@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace VJUI {
 
-public sealed class VJKnobDragger : PointerManipulator
+public class VJKnobDragger : PointerManipulator
 {
     #region Private variables
 

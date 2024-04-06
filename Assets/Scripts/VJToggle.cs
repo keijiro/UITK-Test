@@ -11,7 +11,7 @@ public partial class VJToggle : BaseBoolField
     public static readonly new string ussClassName = "vj-toggle";
     public static readonly new string labelUssClassName = "vj-toggle__label";
     public static readonly new string inputUssClassName = "vj-toggle__input";
-    public static readonly new string checkmarkUssClassName = "vj-toggle__checkmark";
+    public static readonly string checkmarkUssClassName = "vj-toggle__checkmark";
 
     #endregion
 
