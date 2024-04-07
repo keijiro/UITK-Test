@@ -21,8 +21,8 @@ public partial class VJKnob : BaseField<float>
 
     #region USS class names
 
-    public static readonly new string ussClassName = "vj-knob";
-    public static readonly new string labelUssClassName = "vj-knob__label";
+    public static readonly new string ussClassName = "vj-control";
+    public static readonly new string labelUssClassName = "vj-control__label";
 
     #endregion
 

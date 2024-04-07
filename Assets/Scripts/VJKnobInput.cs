@@ -7,7 +7,7 @@ public partial class VJKnobInput : VisualElement
 {
     #region USS class name
 
-    public static readonly string ussClassName = "vj-knob__input";
+    public static readonly string ussClassName = "vj-control__input";
 
     #endregion
 
