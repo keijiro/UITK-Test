@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
 
 namespace VJUI {
 
 [UxmlElement]
 public partial class VJKnob : BaseField<float>
 {
-    #region Public properties
+    #region Public UI properties
 
     [UxmlAttribute]
     public float lowValue { get; set; } = 0;
@@ -20,7 +19,7 @@ public partial class VJKnob : BaseField<float>
 
     #endregion
 
-    #region Static public properties
+    #region USS class names
 
     public static readonly new string ussClassName = "vj-knob";
     public static readonly new string labelUssClassName = "vj-knob__label";

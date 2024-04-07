@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
 
 namespace VJUI {
 
 public partial class VJKnobInput : VisualElement
 {
-    #region Static public property
+    #region USS class name
 
     public static readonly string ussClassName = "vj-knob__input";
 
@@ -18,7 +17,7 @@ public partial class VJKnobInput : VisualElement
 
     #endregion
 
-    #region Style properties
+    #region Custom style properties
 
     static CustomStyleProperty<int> _lineWidthProp
       = new CustomStyleProperty<int>("--line-width");
@@ -40,9 +39,9 @@ public partial class VJKnobInput : VisualElement
         generateVisualContent += GenerateVisualContent;
     }
 
-    void UpdateCustomStyles(CustomStyleResolvedEvent evt)
+    void UpdateCustomStyles(CustomStyleResolvedEvent e)
     {
-        var (style, dirty) = (evt.customStyle, false);
+        var (style, dirty) = (e.customStyle, false);
         dirty |= style.TryGetValue(_lineWidthProp, out _lineWidth);
         dirty |= style.TryGetValue(_secondaryColorProp, out _secondaryColor);
         if (dirty) MarkDirtyRepaint();
@@ -50,7 +49,7 @@ public partial class VJKnobInput : VisualElement
 
     #endregion
 
-    #region Visual construction callback
+    #region Render callback
 
     void GenerateVisualContent(MeshGenerationContext context)
     {

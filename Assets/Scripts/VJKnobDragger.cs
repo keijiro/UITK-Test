@@ -3,14 +3,15 @@ using UnityEngine.UIElements;
 
 namespace VJUI {
 
-public class VJKnobDragger : PointerManipulator
+public sealed class VJKnobDragger : PointerManipulator
 {
     #region Private variables
 
     VJKnob _knob;
     int _pointerID;
-    Vector3 _startPosition;
-    float _startValue;
+    (Vector3 origin, float value) _start;
+
+    bool IsActive => _pointerID >= 0;
 
     #endregion
 
@@ -18,11 +19,8 @@ public class VJKnobDragger : PointerManipulator
 
     public VJKnobDragger(VJKnob knob)
     {
-        _knob = knob;
-        _pointerID = -1;
-
-        activators.Add(new ManipulatorActivationFilter
-                         { button = MouseButton.LeftMouse });
+        (_knob, _pointerID) = (knob, -1);
+        activators.Add(new ManipulatorActivationFilter{button = MouseButton.LeftMouse});
     }
 
     protected override void RegisterCallbacksOnTarget()
@@ -39,46 +37,45 @@ public class VJKnobDragger : PointerManipulator
         target.UnregisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
-    protected void OnPointerDown(PointerDownEvent e)
+    #endregion
+
+    #region Pointer callbacks
+
+    void OnPointerDown(PointerDownEvent e)
     {
-        if (_pointerID >= 0)
+        if (IsActive)
         {
             e.StopImmediatePropagation();
-            return;
         }
-
-        if (CanStartManipulation(e))
+        else if (CanStartManipulation(e))
         {
-            _startPosition = e.localPosition;
-            _startValue = _knob.value;
-            _pointerID = e.pointerId;
-            target.CapturePointer(_pointerID);
+            _start = (e.localPosition, _knob.value);
+            target.CapturePointer(_pointerID = e.pointerId);
             e.StopPropagation();
         }
     }
 
-    protected void OnPointerMove(PointerMoveEvent e)
+    void OnPointerMove(PointerMoveEvent e)
     {
-        if (_pointerID < 0) return;
-        if (!target.HasPointerCapture(_pointerID)) return;
+        if (!IsActive || !target.HasPointerCapture(_pointerID)) return;
 
-        var diff = e.localPosition - _startPosition;
+        var diff = e.localPosition - _start.origin;
         var delta = (diff.x - diff.y) * _knob.sensitivity / 100;
-        delta *= _knob.highValue - _knob.lowValue;
-        _knob.value = _startValue + delta;
+        _knob.value = _start.value + delta * (_knob.highValue - _knob.lowValue);
 
         e.StopPropagation();
     }
 
-    protected void OnPointerUp(PointerUpEvent e)
+    void OnPointerUp(PointerUpEvent e)
     {
-        if (_pointerID < 0) return;
-        if (!target.HasPointerCapture(_pointerID)) return;
-        if (!CanStopManipulation(e)) return;
+        if (!IsActive || !target.HasPointerCapture(_pointerID)) return;
 
-        _pointerID = -1;
-        target.ReleaseMouse();
-        e.StopPropagation();
+        if (CanStopManipulation(e))
+        {
+            _pointerID = -1;
+            target.ReleaseMouse();
+            e.StopPropagation();
+        }
     }
 
     #endregion
