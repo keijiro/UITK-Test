@@ -34,9 +34,9 @@
 .vj-toggle__input {
     --line-width: var(--vj-ui-line-width);
     --secondary-color: var(--vj-ui-secondary-color);
+    color: var(--vj-ui-primary-color);
     width: 60px;
     height: 60px;
-    color: rgba(0, 0, 0, 0);
 }
 
 .vj-toggle__label {
@@ -75,8 +75,4 @@
 
 #knob-container {
     align-items: center;
-}
-
-VJToggle:checked .vj-toggle__input {
-    color: var(--vj-ui-primary-color);
 }

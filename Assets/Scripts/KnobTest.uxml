@@ -39,7 +39,7 @@
                 </engine:Label>
             </engine:VisualElement>
             <engine:VisualElement name="knob-container">
-                <VJUI.VJToggle label="Toggle 1">
+                <VJUI.VJToggle label="Toggle 1" value="true">
                     <Bindings>
                         <engine:DataBinding property="value" data-source-path="Toggle1" binding-mode="TwoWay" />
                     </Bindings>
