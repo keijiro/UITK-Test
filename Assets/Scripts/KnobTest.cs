@@ -30,8 +30,11 @@ public sealed class KnobTest : MonoBehaviour
       => GetComponent<UIDocument>().rootVisualElement.dataSource = this;
 
     void LateUpdate()
-      => Target.localRotation =
-           Quaternion.Euler(Parameter1, Parameter2, Parameter3);
+    {
+        Target.localRotation = Quaternion.Euler(Parameter1, Parameter2, Parameter3);
+        Target.localScale = Vector3.one * (Button1 ? 1.5f : 1);
+        Target.GetComponent<Renderer>().material.color = Toggle1 ? Color.red : Color.white;
+    }
 
 #if UNITY_EDITOR
     [InitializeOnLoadMethod]
