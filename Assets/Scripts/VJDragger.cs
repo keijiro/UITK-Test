@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace VJUI {
 
-public sealed class VJKnobDragger : PointerManipulator
+public sealed class VJDragger : PointerManipulator
 {
     #region Private variables
 
@@ -17,7 +17,7 @@ public sealed class VJKnobDragger : PointerManipulator
 
     #region PointerManipulator implementation
 
-    public VJKnobDragger(VJKnob knob)
+    public VJDragger(VJKnob knob)
     {
         (_knob, _pointerID) = (knob, -1);
         activators.Add(new ManipulatorActivationFilter{button = MouseButton.LeftMouse});

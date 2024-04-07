@@ -8,8 +8,8 @@ public partial class VJToggle : BaseField<bool>, IVJBoolState
 {
     #region USS class names
 
-    public static readonly new string ussClassName = "vj-control";
-    public static readonly new string labelUssClassName = "vj-control__label";
+    public static readonly new string ussClassName = "vj-toggle";
+    public static readonly new string labelUssClassName = "vj-toggle__label";
 
     #endregion
 

@@ -21,8 +21,8 @@ public partial class VJKnob : BaseField<float>
 
     #region USS class names
 
-    public static readonly new string ussClassName = "vj-control";
-    public static readonly new string labelUssClassName = "vj-control__label";
+    public static readonly new string ussClassName = "vj-knob";
+    public static readonly new string labelUssClassName = "vj-knob__label";
 
     #endregion
 
@@ -37,7 +37,7 @@ public partial class VJKnob : BaseField<float>
         AddToClassList(ussClassName);
         labelElement.AddToClassList(labelUssClassName);
         _input = (VJKnobInput)this.Q(className: VJKnobInput.ussClassName);
-        _input.AddManipulator(new VJKnobDragger(this));
+        _input.AddManipulator(new VJDragger(this));
     }
 
     public override void SetValueWithoutNotify(float newValue)

@@ -7,7 +7,7 @@ public partial class VJButtonInput : VisualElement
 {
     #region USS class name
 
-    public static readonly string ussClassName = "vj-control__input";
+    public static readonly string ussClassName = "vj-button__input";
 
     #endregion
 
