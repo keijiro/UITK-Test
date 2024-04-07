@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 namespace VJUI {
 
 [UxmlElement]
-public partial class VJToggle : BaseField<bool>
+public partial class VJToggle : BaseField<bool>, IVJBoolState
 {
     #region USS class names
 
@@ -24,7 +24,7 @@ public partial class VJToggle : BaseField<bool>
         AddToClassList(ussClassName);
         labelElement.AddToClassList(labelUssClassName);
         _input = (VJToggleInput)this.Q(className: VJToggleInput.ussClassName);
-        _input.AddManipulator(new VJClicker(this));
+        _input.AddManipulator(new VJClicker(this, isToggle: true));
     }
 
     public override void SetValueWithoutNotify(bool newValue)

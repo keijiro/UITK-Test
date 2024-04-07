@@ -50,6 +50,18 @@
                     </Bindings>
                 </engine:Label>
             </engine:VisualElement>
+            <engine:VisualElement name="knob-container">
+                <VJUI.VJButton label="Button 1">
+                    <Bindings>
+                        <engine:DataBinding property="value" data-source-path="Button1" binding-mode="TwoWay" />
+                    </Bindings>
+                </VJUI.VJButton>
+                <engine:Label text="False">
+                    <Bindings>
+                        <engine:DataBinding property="text" data-source-path="Button1" binding-mode="ToTarget" />
+                    </Bindings>
+                </engine:Label>
+            </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

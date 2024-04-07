@@ -7,7 +7,8 @@ public sealed class VJClicker : PointerManipulator
 {
     #region Private variables
 
-    VJToggle _toggle;
+    IVJBoolState _state;
+    bool _isToggle;
     int _pointerID;
 
     bool IsActive => _pointerID >= 0;
@@ -16,9 +17,9 @@ public sealed class VJClicker : PointerManipulator
 
     #region PointerManipulator implementation
 
-    public VJClicker(VJToggle toggle)
+    public VJClicker(IVJBoolState state, bool isToggle)
     {
-        (_toggle, _pointerID) = (toggle, -1);
+        (_state, _isToggle, _pointerID) = (state, isToggle, -1);
         activators.Add(new ManipulatorActivationFilter{button = MouseButton.LeftMouse});
     }
 
@@ -46,6 +47,7 @@ public sealed class VJClicker : PointerManipulator
         }
         else if (CanStartManipulation(e))
         {
+            if (!_isToggle) _state.value = true;
             target.CapturePointer(_pointerID = e.pointerId);
             e.StopPropagation();
         }
@@ -57,7 +59,7 @@ public sealed class VJClicker : PointerManipulator
 
         if (CanStopManipulation(e))
         {
-            _toggle.value ^= true;
+            _state.value = _isToggle ? !_state.value : false;
             _pointerID = -1;
             target.ReleaseMouse();
             e.StopPropagation();
