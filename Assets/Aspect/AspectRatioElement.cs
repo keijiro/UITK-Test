@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 namespace GallantGames.UI {
 
 [UxmlElement]
-public partial class AspectRatioPanel : VisualElement
+public partial class AspectRatioElement : VisualElement
 {
     [UxmlAttribute, Range(1, 100)]
     public int aspectRatioX { get; set; } = 16;
@@ -25,7 +25,7 @@ public partial class AspectRatioPanel : VisualElement
     [UxmlAttribute, Range(0, 100)]
     public int balanceY { get; set; } = 50;
 
-    public AspectRatioPanel()
+    public AspectRatioElement()
     {
         ApplyBaseStyle();
         RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
