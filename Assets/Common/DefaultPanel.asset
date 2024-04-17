@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: AspectPanel
+  m_Name: DefaultPanel
   m_EditorClassIdentifier: 
   themeUss: {fileID: -4733365628477956816, guid: b28d8f80ac0f34e71b277207e3a0a5ac, type: 3}
   m_TargetTexture: {fileID: 0}

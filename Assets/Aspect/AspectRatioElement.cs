@@ -1,73 +1,57 @@
-// Aspect Ratio Preserving Panel originally written by pbhogan
-// https://gist.github.com/pbhogan/2094a033c094ddd1b0b8f37a5dffd005
-//
-// Updated for Unity 6 by Keijiro Takahashi
-//
-// Released into the public domain
+// Fixed aspect ratio element from Unity Manual
+// https://docs.unity3d.com/6000.0/Documentation/Manual/UIE-create-aspect-ratios-custom-control.html
 
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace GallantGames.UI {
-
 [UxmlElement]
 public partial class AspectRatioElement : VisualElement
 {
-    [UxmlAttribute, Range(1, 100)]
-    public int aspectRatioX { get; set; } = 16;
+    [UxmlAttribute("width"), Range(1, 100)]
+    public int ratioWidth
+      { get => _ratio.x; set => UpdateAspect(value, -1); }
 
-    [UxmlAttribute, Range(1, 100)]
-    public int aspectRatioY { get; set; } = 9;
+    [UxmlAttribute("height"), Range(1, 100)]
+    public int ratioHeight
+      { get => _ratio.y; set => UpdateAspect(-1, value); }
 
-    [UxmlAttribute, Range(0, 100)]
-    public int balanceX { get; set; } = 50;
-
-    [UxmlAttribute, Range(0, 100)]
-    public int balanceY { get; set; } = 50;
+    (int x, int y) _ratio = (16, 9);
 
     public AspectRatioElement()
     {
-        ApplyBaseStyle();
-        RegisterCallback<AttachToPanelEvent>(OnAttachToPanelEvent);
+        RegisterCallback<GeometryChangedEvent>(UpdateAspectAfterEvent);
+        RegisterCallback<AttachToPanelEvent>(UpdateAspectAfterEvent);
     }
 
-    void OnAttachToPanelEvent(AttachToPanelEvent e)
+    static void UpdateAspectAfterEvent(EventBase e)
+      => (e.target as AspectRatioElement)?.UpdateAspect(-1, -1);
+
+    void UpdateAspect(int x, int y)
     {
-        parent?.RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
-        FitToParent();
-    }
+        _ratio.x = (x > 0) ? Mathf.Max(1, x) : _ratio.x;
+        _ratio.y = (y > 0) ? Mathf.Max(1, y) : _ratio.y;
 
-    void OnGeometryChangedEvent(GeometryChangedEvent e)
-      => FitToParent();
+        var resolved = (x: resolvedStyle.width, y: resolvedStyle.height);
+        var designRatio = (float)_ratio.x / _ratio.y;
+        var currRatio = resolved.x / resolved.y;
+        var diff = currRatio - designRatio;
 
-    void ApplyBaseStyle()
-    {
-        style.position = Position.Absolute;
-        style.left = 0;
-        style.top = 0;
-        style.right = StyleKeyword.Undefined;
-        style.bottom = StyleKeyword.Undefined;
-    }
-
-    void FitToParent()
-    {
-        ApplyBaseStyle();
-
-        if (parent == null) return;
-        var parentW = parent.resolvedStyle.width;
-        var parentH = parent.resolvedStyle.height;
-        var ratio = Mathf.Min(parentW / aspectRatioX, parentH / aspectRatioY);
-
-        var targetW = Mathf.Floor(aspectRatioX * ratio);
-        var targetH = Mathf.Floor(aspectRatioY * ratio);
-        style.width = targetW;
-        style.height = targetH;
-
-        var marginX = parentW - targetW;
-        var marginY = parentH - targetH;
-        style.left = Mathf.Floor(marginX * balanceX / 100.0f);
-        style.top = Mathf.Floor(marginY * balanceY / 100.0f);
+        if (diff > 0)
+        {
+            var pad = resolved.x - (resolved.y * designRatio);
+            style.paddingLeft = style.paddingRight = pad / 2;
+            style.paddingTop = style.paddingBottom = 0;
+        }
+        else if (diff < 0)
+        {
+            var pad = resolved.y - (resolved.x / designRatio);
+            style.paddingLeft = style.paddingRight = 0;
+            style.paddingTop = style.paddingBottom = pad / 2;
+        }
+        else
+        {
+            style.paddingLeft = style.paddingRight = 0;
+            style.paddingBottom = style.paddingTop = 0;
+        }
     }
 }
-
-} // namespace GallantGames.UI
