@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public sealed class AppConfig : MonoBehaviour
-{
-    void Start()
-    {
 #if UNITY_IOS && !UNITY_EDITOR
+
+static class AppConfig
+{
+    [RuntimeInitializeOnLoadMethod]
+    static void Initialize()
+    {
         Application.targetFrameRate = 60;
-#endif
     }
 }
+
+#endif
