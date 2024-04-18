@@ -1,19 +1,4 @@
-#information-row {
-    margin-top: 3px;
-    margin-right: 3px;
-    margin-bottom: 3px;
-    margin-left: 3px;
-}
-
-#field-label {
-    padding-right: 10px;
-    -unity-font-style: bold;
-    color: rgb(255, 166, 0);
-}
-
 Label {
-    font-size: 12px;
-    color: rgb(255, 255, 255);
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -22,4 +7,70 @@ Label {
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
+}
+
+#profile-container {
+    flex-direction: row;
+    width: 640px;
+    height: 144px;
+    padding-top: 8px;
+    padding-right: 32px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    background-color: rgb(255, 248, 232);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#portrait {
+    width: 128px;
+    height: 128px;
+}
+
+#portrait-shadow {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 128px;
+    height: 128px;
+    background-color: rgba(0, 0, 0, 0.62);
+}
+
+#display-name {
+    font-size: 54px;
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Bold.ttf?fileID=12800000&guid=d3af87a0782004f5c9fa3ea2fb455c3e&type=3#InriaSerif-Bold");
+    margin-left: 36px;
+    -unity-text-align: middle-left;
+}
+
+#info-column {
+    align-self: flex-start;
+}
+
+#field-label {
+    font-size: 20px;
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic.ttf?fileID=12800000&guid=c4b58b93fd86c49b3970168b2d96ce04&type=3#InriaSerif-Italic");
+    -unity-text-align: lower-left;
+    translate: 0 -4px;
+}
+
+.fieldRow {
+    flex-direction: row;
+    border-top-width: 1.5px;
+    border-right-width: 1.5px;
+    border-bottom-width: 1.5px;
+    border-left-width: 1.5px;
+    width: 160px;
+    justify-content: flex-end;
+    height: 58px;
+}
+
+.fieldValue {
+    padding-left: 8px;
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic.ttf?fileID=12800000&guid=c4b58b93fd86c49b3970168b2d96ce04&type=3#InriaSerif-Italic");
+    translate: 0 2px;
+    font-size: 48px;
+    -unity-text-align: middle-left;
 }
