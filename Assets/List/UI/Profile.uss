@@ -1,15 +1,25 @@
-#information Label {
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    -unity-text-align: middle-left;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
+#information-row {
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
 }
 
 #field-label {
     padding-right: 10px;
     -unity-font-style: bold;
-    color: rgb(233, 54, 54);
+    color: rgb(255, 166, 0);
+}
+
+Label {
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
