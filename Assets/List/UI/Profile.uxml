@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/List/UI/Profile.uss?fileID=7433441132597879392&amp;guid=9152b15f8ac684511911932bde375d9d&amp;type=3#Profile" />
-    <engine:VisualElement name="profile-container" style="margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;">
+    <engine:VisualElement name="profile-container">
         <engine:VisualElement name="portrait-shadow" />
         <engine:VisualElement name="portrait">
             <Bindings>
