@@ -9,7 +9,7 @@ Label {
     padding-left: 0;
 }
 
-#profile-container {
+.profileContainer {
     flex-direction: row;
     width: 640px;
     height: 144px;
@@ -28,12 +28,12 @@ Label {
     margin-left: 8px;
 }
 
-#portrait {
+.portrait {
     width: 128px;
     height: 128px;
 }
 
-#portrait-shadow {
+.portraitShadow {
     position: absolute;
     top: 12px;
     left: 12px;
@@ -42,33 +42,26 @@ Label {
     background-color: rgba(0, 0, 0, 0.62);
 }
 
-#display-name {
+.displayName {
     font-size: 54px;
     -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Bold%20SDF.asset?fileID=11400000&guid=55f475540810f4098b9cc3b651ea9671&type=2#InriaSerif-Bold SDF");
     margin-left: 36px;
     -unity-text-align: middle-left;
 }
 
-#info-column {
-    align-self: flex-start;
+.fieldRow {
+    flex-direction: row;
+    border-bottom-width: 1.5px;
+    width: 160px;
+    justify-content: flex-end;
+    height: 58px;
 }
 
-#field-label {
+.fieldLabel {
     font-size: 20px;
     -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic%20SDF.asset?fileID=11400000&guid=aa7749140ea984086b90e27e7cc67636&type=2#InriaSerif-Italic SDF");
     -unity-text-align: lower-left;
     translate: 0 -4px;
-}
-
-.fieldRow {
-    flex-direction: row;
-    border-top-width: 1.5px;
-    border-right-width: 1.5px;
-    border-bottom-width: 1.5px;
-    border-left-width: 1.5px;
-    width: 160px;
-    justify-content: flex-end;
-    height: 58px;
 }
 
 .fieldValue {
@@ -77,4 +70,14 @@ Label {
     translate: 0 2px;
     font-size: 48px;
     -unity-text-align: middle-left;
+}
+
+.colorLife {
+    color: rgb(0, 86, 140);
+    border-bottom-color: rgb(0, 86, 140);
+}
+
+.colorStrength {
+    color: rgb(147, 0, 0);
+    border-bottom-color: rgb(147, 0, 0);
 }
