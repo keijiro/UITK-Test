@@ -44,7 +44,7 @@ Label {
 
 #display-name {
     font-size: 54px;
-    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Bold.ttf?fileID=12800000&guid=d3af87a0782004f5c9fa3ea2fb455c3e&type=3#InriaSerif-Bold");
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Bold%20SDF.asset?fileID=11400000&guid=55f475540810f4098b9cc3b651ea9671&type=2#InriaSerif-Bold SDF");
     margin-left: 36px;
     -unity-text-align: middle-left;
 }
@@ -55,7 +55,7 @@ Label {
 
 #field-label {
     font-size: 20px;
-    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic.ttf?fileID=12800000&guid=c4b58b93fd86c49b3970168b2d96ce04&type=3#InriaSerif-Italic");
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic%20SDF.asset?fileID=11400000&guid=aa7749140ea984086b90e27e7cc67636&type=2#InriaSerif-Italic SDF");
     -unity-text-align: lower-left;
     translate: 0 -4px;
 }
@@ -73,7 +73,7 @@ Label {
 
 .fieldValue {
     padding-left: 8px;
-    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic.ttf?fileID=12800000&guid=c4b58b93fd86c49b3970168b2d96ce04&type=3#InriaSerif-Italic");
+    -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Italic%20SDF.asset?fileID=11400000&guid=aa7749140ea984086b90e27e7cc67636&type=2#InriaSerif-Italic SDF");
     translate: 0 2px;
     font-size: 48px;
     -unity-text-align: middle-left;
