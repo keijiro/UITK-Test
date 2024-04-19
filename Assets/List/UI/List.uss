@@ -52,3 +52,22 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
+
+.unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+    scale: 1.03 1.03;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+    transition-property: scale;
+}
+
+.unity-list-view__item {
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+    transition-property: scale;
+}
+
+.unity-collection-view__item--selected {
+    background-color: rgba(0, 0, 0, 0);
+    left: -50px;
+}

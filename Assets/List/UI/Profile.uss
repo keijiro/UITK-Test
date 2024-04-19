@@ -23,9 +23,9 @@ Label {
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     margin-top: 8px;
-    margin-right: 8px;
+    margin-right: 16px;
     margin-bottom: 8px;
-    margin-left: 8px;
+    margin-left: 58px;
 }
 
 .portrait {
@@ -47,6 +47,7 @@ Label {
     -unity-font-definition: url("project://database/Assets/Common/InriaSerif-Bold%20SDF.asset?fileID=11400000&guid=55f475540810f4098b9cc3b651ea9671&type=2#InriaSerif-Bold SDF");
     margin-left: 36px;
     -unity-text-align: middle-left;
+    color: rgb(53, 53, 53);
 }
 
 .fieldRow {
